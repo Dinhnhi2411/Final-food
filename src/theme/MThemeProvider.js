@@ -7,10 +7,10 @@ import {
 const PRIMARY = {
     lighter: "#0b8c12",
     light: "#0a8211",
-    main: "#08660D",
+    main: "#005965",
     dark: "#064a09",
     darker: "#042d06",
-    contrastText: "#FFF",
+    contrastText: "#fff",
 };
 const SECONDARY = {
     lighter: "#FFF",

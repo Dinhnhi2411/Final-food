@@ -1,11 +1,16 @@
-import React from 'react'
+import React from "react";
+import { BrowserRouter } from "react-router-dom";
+import Router from "./routes/Router";
+import MThemeProvider from "./theme/MThemeProvider";
 
 function App() {
   return (
-    <div>
-      <h1>Food Store</h1>
-    </div>
-  )
+    <BrowserRouter>
+      <MThemeProvider>
+        <Router />
+      </MThemeProvider>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

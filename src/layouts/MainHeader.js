@@ -1,9 +1,10 @@
 import React from 'react'
+import AppBarMenu from '../components/AppBarMenu'
 
 function MainHeader() {
   return (
     <div>
-      <h1>Main Header</h1>
+      <AppBarMenu/>
     </div>
   )
 }

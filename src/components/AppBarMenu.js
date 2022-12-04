@@ -13,10 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { createTheme, ThemeProvider } from "@mui/system";
-import { green, orange } from '@mui/material/colors';
-
-
-
+import { green, orange } from "@mui/material/colors";
 
 const pages = ["Home", "Shopping", "Contact"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -40,12 +37,9 @@ function AppBarMenu() {
     setAnchorElUser(null);
   };
 
-
   return (
-
     <AppBar>
       <Container
-        
         maxWidth="xl"
         position="static"
         display="flex"
@@ -71,13 +65,7 @@ function AppBarMenu() {
             FoodStore
           </Typography>
 
-          <Box 
-          sx=
-          {{ flexGrow: 1,
-           display: { xs: "flex", md: "none" } ,
-           
-           }}
-           >
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -112,14 +100,7 @@ function AppBarMenu() {
             </Menu>
           </Box>
           <Typography>
-            <img
-              src="./logo_3.png"
-              alt="logo"
-              width={70}
-              height={70}
-          
-             
-            />
+            <img src="./logo_3.png" alt="logo" width={70} height={70} />
           </Typography>
 
           <Typography
@@ -184,7 +165,6 @@ function AppBarMenu() {
         </Toolbar>
       </Container>
     </AppBar>
-
   );
 }
 export default AppBarMenu;

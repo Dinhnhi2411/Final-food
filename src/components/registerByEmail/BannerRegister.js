@@ -8,16 +8,22 @@ function BannerRegister() {
       <Container
      sx={{
             maxWidth:"lg",
-            m:0,
+            mt:5,
+            mb:5,
             display:"flex",
             justifyContent:"center",
-            opacity:"0.7"
+            opacity:"0.7",
+            
         }}
       >
         <img
         src="./background/background.jpg"
         alt=""
-        
+       
+        sx={{
+            position:"relative",
+            
+        }}
         />
       </Container>
     </div>

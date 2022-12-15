@@ -3,11 +3,14 @@ import MainFooter from './MainFooter';
 import MainHeader from './MainHeader';
 import {Box, Stack} from "@mui/material";
 import { Outlet } from 'react-router-dom';
+import AlertMsg from '../components/alertMsg/AlertMsg';
+
 
 function MainLayout() {
   return (
-    <Stack sx={{ minHeight: "100vh" }}>
+    <Stack sx={{ width:"100wh" , minHeight: "100vh", backgroundColor: "#E6FFCC"}}>
     <MainHeader/>
+    <AlertMsg />
     <Outlet/>
     <Box sx={{ flexGrow: 1}}/>
     <MainFooter/>

@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import { Stack } from "@mui/system";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { banner } from "../../data/Data";
 import "./Banner.css";
@@ -11,11 +11,13 @@ import { SmoothHorizontalScrolling } from "../../utils";
 function Banner(props) {
   const sliderRef = useRef();
   const bannerRef = useRef();
+  const [dragDown, setDragDown] = useState(0);
+  const [dragMove, setDragMove] = useState(0);
+  const [isDrag, setIsDrag] = useState(false);
 
   const handleScrollRight = () => {
     const maxScrollLeft =
       sliderRef.current.scrollWidth - sliderRef.current.clientWidth;
-    console.log(maxScrollLeft);
     if (sliderRef.current.scrollLeft < maxScrollLeft) {
       SmoothHorizontalScrolling(
         sliderRef.current,
@@ -26,7 +28,6 @@ function Banner(props) {
     }
   };
   const handleScrollLeft = () => {
-    console.log("click left");
     if (sliderRef.current.scrollLeft > 0) {
       SmoothHorizontalScrolling(
         sliderRef.current,
@@ -37,19 +38,43 @@ function Banner(props) {
     }
   };
 
+    useEffect(()=> {
+  if (isDrag) {
+    if(dragMove < dragDown) handleScrollRight();
+    if(dragMove >  dragDown) handleScrollLeft();
+  }
+    },[dragDown, dragMove, isDrag])
+      const onDragStart = e => {
+        setIsDrag(true);
+        setDragDown(e.screenX);
+
+      }
+      const onDragEnd = e => {
+        setIsDrag(false);
+      }
+      const onDragEnter = e => {
+        setDragMove(e.screenX);
+      }
+
   return (
     <>
       <BannerContainer draggable="false">
-        <h1>Banner</h1>
-        <BannerSlider 
-        ref={sliderRef} 
-        draggable="true"
-        onDragStart={onDragStart}
+        
+        <BannerSlider
+          ref={sliderRef}
+          draggable="true"
+          onDragStart={onDragStart}
+          onDragEnd={onDragEnd}
+          onDragEnter={onDragEnter}
         >
           {banner.map((items, index) => (
-            <Stack key={items.id} className="bannerItems" ref={bannerRef} draggable="false">
-              <img key={items.id} src={items.cover} alt="" draggable="false"/>
-              <Button>By now</Button>
+            <Stack
+              key={items.id}
+              className="bannerItems"
+              ref={bannerRef}
+              draggable="false"
+            >
+              <img key={items.id} src={items.cover} alt="" draggable="false" />
             </Stack>
           ))}
         </BannerSlider>
@@ -83,7 +108,7 @@ const BannerContainer = styled.div`
     border-radius: 4px;
     display: flex;
     align-items: center;
-    transform: translateY(-10%);
+    transform: translateY(-50%);
     &:hover {
       background-color: rgba(0, 0, 0, 0.8);
     }
@@ -112,7 +137,7 @@ const BannerContainer = styled.div`
     border-radius: 4px;
     display: flex;
     align-items: center;
-    transform: translateY(-10%);
+    transform: translateY(-50%);
     &:hover {
       background-color: rgba(0, 0, 0, 0.8);
     }
@@ -156,8 +181,8 @@ const BannerSlider = styled.div`
 
   .bannerItems {
     transform: scale(1);
-    max-width: 400px;
-    max-height: 500px;
+    max-width: 500px;
+    max-height: 400px;
     width: 100%;
     height: 100%;
     transition: all 0.3s linear;
@@ -171,6 +196,7 @@ const BannerSlider = styled.div`
       opacity: 1;
       transform: scale(1.1);
       z-index: 10;
+      cursor: pointer;
     }
 
     img {

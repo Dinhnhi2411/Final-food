@@ -1,46 +1,221 @@
-# Getting Started with Create React App and Redux
+# Food Store - Mini Food
+## User Stories
+### Background 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+FoodStore is an online sales application. FoodStore specializes in providing fresh fruits and vegetables to serve the needs of customers.
+With FoodStore, consumers can view and buy goods directly on the application without having to go far to buy, and also save customers' time. 
+FoodStore will be a place that fully meets, diverse in products, quality and reasonable prices.
+At the same time FoodStore will make it possible for you to sell your own food items in the future.
 
-## Available Scripts
+### Authentication
 
-In the project directory, you can run:
+* As a user, i can sign in with my email and pasword.
+* As a user, i can register for a new account, email, password.
+* As a user, i can stay signed in with refreshing page.
 
-### `npm start`
+### User
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* As a user and as is a customer, I can see the user's profile.
+* As a user and as is a customer, I can update my profile.
+* As a user and as of a Admin , I can see my profile.
+* As a user and as of a Admin , I can update about my store as logo, name, company, phone, address,.. etc
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+### Product 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* As a use and as is a customer, I can see a list of all products.
+* As a use and as is a customer, I can search according to the product name
+* As a user and as of a customer, I can see the details of a product.
+* 
+* As a user and as of a Admin , I can see the list of products I'm selling.
+* As a user and as of a Admin , I can add new products.
+* As a user and as of a Admin , I can update the information of a product I'm selling
+* As a user and as of a Admin , I can delete my product.
 
-### `npm run build`
+### Cart
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* As a user and as of a customer, I can add products to the cart.
+* As a user and as of a customer, I can see the list of products in the cart.
+* As a user and as of a customer, I can add or reduce the number of products in the cart.
+* As a user and as of a customer, I can remove the product in the cart.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Order 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* As a user and as of a customer, I can order an order to my address and phone number.
+* As a user and as of a customer, I can see the list of my order.
+* As a user and as of a Admin , I can see the list of orders 
+* As a user and as of a Admin , I can update the status for my orders.
 
-### `npm run eject`
+## EndPoint APIs
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Auth APIs
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+/**
+ * @route POST /auth/loginUser
+ * @description Log in with email and password
+ * @body {email, password}
+ * @access public 
+ */
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### User APIs
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+/**
+ * @route POST /users/customer
+ * @description Register new (user) customer
+ * @body {name, email, password}
+ * @access public 
+ */
+ 
+/**
+ * @route POST /users/admin
+ * @description Register new admin 
+ * @body {name, email, password}
+ * @access public 
+ */
 
-## Learn More
+/**
+ * @route GET /users/me
+ * @description Get current user info
+ * @body
+ * @access Login required
+ */
+ 
+/**
+ * @route GET /users/:id
+ * @description Get a user profile
+ * @access Login required
+ */
+ 
+/**
+ * @route PUT /users/admin/:id
+ * @description Update admin profile
+ * @body {name, avataUrl, address}
+ * @access Login required
+ */
+ 
+### Product APIs
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+/**
+ * @route POST /products
+ * @description Create a new products
+ * @body { name, image, description, types:[ Fruit, Vetgetable ],   price, unit, amount }
+ * @access Admin Login required
+ */
+ 
+/**
+ * @route GET /products?page=1&limit=10
+ * @description Get all products with pagination
+ * @body 
+ * @access public
+ */
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+/**
+ * @route GET /products/:id
+ * @description Get a product
+ * @body
+ * @access public
+ */
+ 
+/**
+ * @route GET /products/detail/:id
+ * @description Get a product
+ * @body
+ * @access public
+ */
+ 
+ /**
+ * @route GET /products/:id?page=1&limit=10
+ * @description Get products with pagination
+ * @body
+ * @access public
+ */
+ 
+ 
+/**
+ * @route PUT /products
+ * @description Update a new products
+ * @body {name, image, description, types:[ Fruit, Vetgetable ], price, unit, amount}
+ * @access Admin Login required
+ */
+ 
+/**
+ * @route DELETE /products/:id
+ * @description Delete a product
+ * @body
+ * @access Login required
+ */
+ 
+ ### Cart APIs
+ 
+ /**
+ * @route POST /carts
+ * @description Create a new cart
+ * @body { productId:Types.ObjectId, customerId:Types.ObjectId, amount }
+ * @access Seller Login required
+ */
+ 
+ /**
+ * @route GET /cart?page=1&limit=10&
+ * @description Get cart with pagination
+ * @body
+ * @access Login require
+ */
+ 
+ /**
+ * @route PUT /carts
+ * @description Update a new cart
+ * @body {amount}
+ * @access Admin Login required
+ */
+ 
+ /**
+ * @route DELETE /carts/:id
+ * @description Delete a cartProduct
+ * @body
+ * @access Login required
+ */
+ 
+ ### Orders APIs
+ 
+ /**
+ * @route POST /oders
+ * @description Create a new Oders
+ * @body { productName, userName, amount }
+ * @access Login required
+ */
+ 
+ /**
+ * @route GET /oders?page=1&limit=10
+ * @description Get oders with pagination
+ * @body
+ * @access login Require
+ */
+ 
+ /**
+ * @route GET /oders/admin?page=1&limit=10
+ * @description Get oders with pagination
+ * @access Login Require
+ */
+ 
+/**
+ * @route GET /oders/:id
+ * @description Get a oders
+ * @access Login required
+ */
+ 
+ /**
+ * @route PUT /oders
+ * @description Update a new oders
+ * @body {status}
+ * @access Admin Login required
+ */
+ 
+ /**
+ * @route DELETE /oders/:id
+ * @description Delete a oder
+ * @access Login required
+ 
+ 
+ ## Rlational Diagram 
+ 
+ ![](https://i.imgur.com/5DbHT3X.png)
